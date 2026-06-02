@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriSmart Solutions | Revolutionizing Agriculture</title>
+    
+    <!-- Google Fonts: Poppins for headings, Inter for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* =========================================
+           CSS Variables & Global Reset
+           ========================================= */
+        :root {
+            /* Color Palette */
+            --primary-color: #1b4332; /* Deep Dark Green */
+            --secondary-color: #2d6a4f; /* Leaf Green */
+            --accent-color: #52b788; /* Bright Accent Green */
+            --accent-light: #74c69d;
+            --text-dark: #212529;
+            --text-muted: #6c757d;
+            --bg-light: #f8f9fa;
+            --bg-white: #ffffff;
+            --bg-green: #1B5E20;
+
+            
+            /* Typography */
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            
+            /* Transitions & Shadows */
+            --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 20px 40px rgba(45, 106, 79, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--bg-light);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+            color: var(--primary-color);
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Section Headings */
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 4px;
+            background: var(--accent-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 30px;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: var(--bg-white);
+            box-shadow: 0 4px 15px rgba(82, 183, 136, 0.4);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(27, 67, 50, 0.4);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border-color: var(--bg-white);
+            color: var(--bg-white);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--bg-white);
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        /* =========================================
+           Header & Navigation (Pure CSS Mobile Menu)
+           ========================================= */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: var(--accent-color);
+        }
+
+        /* Hidden Checkbox for Mobile Nav Toggle */
+        #nav-toggle {
+            display: none;
+        }
+
+        .nav-toggle-label {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .nav-toggle-label span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+            transition: var(--transition-smooth);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            font-family: var(--font-heading);
+            font-weight: 500;
+            color: var(--text-dark);
+            font-size: 1rem;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            bottom: -5px;
+            left: 0;
+            transition: var(--transition-smooth);
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* =========================================
+           Hero Section
+           ========================================= */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: url('smart_farming.jpg.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            color: var(--bg-black);
+            animation: fadeIn 1.5s ease-out forwards;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--bg-green);
+            margin-bottom: 20px;
+            line-height: 1.1;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            font-weight: 300;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* =========================================
+           Section 1: Our Services
+           ========================================= */
+        .services {
+            padding: 100px 0;
+            background-color: var(--bg-light);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--bg-white);
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-card);
+            text-align: center;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            border-bottom: 4px solid var(--accent-color);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            transition: var(--transition-smooth);
+            z-index: 0;
+            opacity: 0.05;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .service-card:hover::before {
+            height: 100%;
+        }
+
+        .service-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background-color: rgba(82, 183, 136, 0.1);
+            color: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 25px;
+            transition: var(--transition-smooth);
+        }
+
+        .service-card:hover .service-icon {
+            background-color: var(--accent-color);
+            color: var(--bg-white);
+            transform: scale(1.1);
+        }
+
+        .service-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* =========================================
+           Section 2: Smart Technology
+           ========================================= */
+        .technology {
+            padding: 100px 0;
+            background-color: var(--bg-white);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .tech-item {
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: var(--transition-smooth);
+        }
+
+        .tech-item:hover {
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 20px rgba(82, 183, 136, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .tech-item i {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        .tech-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .tech-item p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* =========================================
+           Section 3: Why Choose Us (Stats)
+           ========================================= */
+        .stats {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--bg-white);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            text-align: center;
+        }
+
+        .stat-card {
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* =========================================
+           Section 4: Success Stories
+           ========================================= */
+        .testimonials {
+            padding: 100px 0;
+            background-color: var(--bg-light);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: var(--bg-white);
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-card);
+            position: relative;
+        }
+
+        .quote-icon {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 3rem;
+            color: rgba(82, 183, 136, 0.15);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .client-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .client-info img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent-color);
+        }
+
+        .client-details h4 {
+            font-size: 1.1rem;
+            margin-bottom: 3px;
+        }
+
+        .client-details p {
+            font-size: 0.85rem;
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        /* =========================================
+           Contact CTA Section
+           ========================================= */
+        .cta-section {
+            padding: 80px 0;
+            background: linear-gradient(45deg, var(--secondary-color), var(--accent-color));
+            text-align: center;
+            color: var(--bg-white);
+        }
+
+        .cta-section h2 {
+            color: var(--bg-white);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* =========================================
+           Footer
+           ========================================= */
+        footer {
+            background-color: var(--text-dark);
+            color: var(--bg-white);
+            padding: 80px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-col h3 {
+            color: var(--bg-white);
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--accent-color);
+        }
+
+        .footer-col p {
+            color: #adb5bd;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #adb5bd;
+            transition: var(--transition-smooth);
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition-smooth);
+        }
+
+        .social-icons a:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #adb5bd;
+            font-size: 0.9rem;
+        }
+
+        /* =========================================
+           Responsive Design (Media Queries)
+           ========================================= */
+        
+        /* Tablet & Small Desktops */
+        @media (max-width: 992px) {
+            .hero h1 { font-size: 2.8rem; }
+            .tech-grid { grid-template-columns: repeat(2, 1fr); }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .testimonial-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        /* Mobile Devices */
+        @media (max-width: 768px) {
+            .nav-toggle-label { display: flex; }
+            
+            nav ul {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--bg-white);
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s ease-out;
+                box-shadow: 0 10px 10px rgba(0,0,0,0.05);
+            }
+
+            /* The Pure CSS Checkbox Hack for Mobile Menu */
+            #nav-toggle:checked ~ nav ul {
+                max-height: 300px;
+                padding: 20px 0;
+            }
+
+            nav ul li {
+                text-align: center;
+                padding: 10px 0;
+            }
+            
+            /* Transform hamburger icon into an X when checked */
+            #nav-toggle:checked ~ .nav-toggle-label span:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+            #nav-toggle:checked ~ .nav-toggle-label span:nth-child(2) {
+                opacity: 0;
+            }
+            #nav-toggle:checked ~ .nav-toggle-label span:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+
+            .hero h1 { font-size: 2.2rem; }
+            .hero p { font-size: 1rem; }
+            .hero-buttons { flex-direction: column; }
+            
+            .testimonial-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: 1fr; gap: 40px; }
+            .tech-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; text-align: center; }
+            
+            .footer-col h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .social-icons {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-seedling"></i> AgriSmart
+            </a>
+            
+            <!-- Pure CSS Mobile Menu Trigger -->
+            <input type="checkbox" id="nav-toggle">
+            
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#technology">Technology</a></li>
+                    <li><a href="#stories">Success Stories</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <label for="nav-toggle" class="nav-toggle-label">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>Revolutionizing Agriculture with Smart Technology</h1>
+                <p>Empowering modern farmers to increase crop yields, reduce waste, and build sustainable futures through AI, IoT, and data-driven farming solutions.</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">Get Started</a>
+                    <a href="#services" class="btn btn-outline">Learn More</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="services">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Our Services</h2>
+                    <p>Comprehensive solutions designed to bring your farm into the digital age with efficiency and precision.</p>
+                </div>
+                
+                <div class="services-grid">
+                    <article class="service-card">
+                        <div class="service-icon">
+                            <i class="fa-solid fa-satellite-dish"></i>
+                        </div>
+                        <h3>Precision Farming</h3>
+                        <p>Utilize GPS mapping, satellite imagery, and yield mapping to optimize seeding, fertilizer application, and harvesting strategies.</p>
+                    </article>
+                    
+                    <article class="service-card">
+                        <div class="service-icon">
+                            <i class="fa-solid fa-leaf"></i>
+                        </div>
+                        <h3>IoT Crop Monitoring</h3>
+                        <p>Real-time data from strategically placed sensors monitor soil moisture, temperature, and crop health directly to your smartphone.</p>
+                    </article>
+                    
+                    <article class="service-card">
+                        <div class="service-icon">
+                            <i class="fa-solid fa-droplet"></i>
+                        </div>
+                        <h3>Smart Irrigation</h3>
+                        <p>Automated water management systems that reduce water waste by analyzing weather forecasts and real-time soil conditions.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Smart Technology Section -->
+        <section id="technology" class="technology">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Powered by Next-Gen Tech</h2>
+                    <p>We leverage cutting-edge technology to give you an unfair advantage in agricultural productivity.</p>
+                </div>
+
+                <div class="tech-grid">
+                    <div class="tech-item">
+                        <i class="fa-solid fa-microchip"></i>
+                        <h4>AI Analytics</h4>
+                        <p>Predictive models for crop disease and yield estimation.</p>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fa-solid fa-drone"></i>
+                        <h4>Drone Monitoring</h4>
+                        <p>Aerial surveys for rapid crop health assessment and mapping.</p>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fa-solid fa-cloud-sun-rain"></i>
+                        <h4>Weather Forecasting</h4>
+                        <p>Hyper-local weather predictions integrated into farming schedules.</p>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fa-solid fa-vial"></i>
+                        <h4>Soil Health Tracking</h4>
+                        <p>Advanced chemical analysis for perfect nutrient balancing.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us / Statistics -->
+        <section class="stats">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Client Satisfaction</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">50k+</div>
+                        <div class="stat-label">Acres Managed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">30%</div>
+                        <div class="stat-label">Average Yield Increase</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Monitoring Support</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Success Stories Section -->
+        <section id="stories" class="testimonials">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Success Stories</h2>
+                    <p>Hear from the farmers who have transformed their operations using AgriSmart Solutions.</p>
+                </div>
+
+                <div class="testimonial-grid">
+                    <article class="testimonial-card">
+                        <i class="fa-solid fa-quote-right quote-icon"></i>
+                        <p class="testimonial-text">"Since implementing the smart irrigation system, we've cut our water usage by 40% while simultaneously seeing our highest corn yield in a decade. Truly game-changing technology."</p>
+                        <div class="client-info">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="David Miller">
+                            <div class="client-details">
+                                <h4>David Miller</h4>
+                                <p>Midwest Grain Farms</p>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="testimonial-card">
+                        <i class="fa-solid fa-quote-right quote-icon"></i>
+                        <p class="testimonial-text">"The drone monitoring and AI analytics caught a blight outbreak weeks before it would have been visible from the ground. AgriSmart saved our entire harvest this season."</p>
+                        <div class="client-info">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Sarah Jenkins">
+                            <div class="client-details">
+                                <h4>Sarah Jenkins</h4>
+                                <p>Valley Organic Orchards</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="testimonial-card">
+                        <i class="fa-solid fa-quote-right quote-icon"></i>
+                        <p class="testimonial-text">"As a multi-generational farm, we were hesitant to adopt new tech. But the intuitive dashboard and 24/7 support made the transition seamless. We are farming smarter, not harder."</p>
+                        <div class="client-info">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Robert Chen">
+                            <div class="client-details">
+                                <h4>Robert Chen</h4>
+                                <p>Chen Family Agriculture</p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact CTA Section -->
+        <section id="contact" class="cta-section">
+            <div class="container">
+                <h2>Ready to Modernize Your Farm?</h2>
+                <p>Join thousands of farmers who are maximizing their yields and protecting the environment with smart technology.</p>
+                <a href="#" class="btn btn-primary" style="background-color: var(--primary-color); border: 2px solid white;">Schedule a Free Consultation</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3><i class="fa-solid fa-seedling" style="color: var(--accent-color);"></i> AgriSmart</h3>
+                    <p>AgriSmart Solutions is dedicated to bringing cutting-edge IoT, AI, and precision agriculture technology to farms of all sizes across the globe.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Our Services</a></li>
+                        <li><a href="#technology">Technology</a></li>
+                        <li><a href="#stories">Success Stories</a></li>
+                        <li><a href="#">Pricing</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Farming Blog</a></li>
+                        <li><a href="#">Case Studies</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">API Documentation</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fa-solid fa-location-dot" style="width: 20px;"></i> 123 Tech Valley, Ag-City</li>
+                        <li><i class="fa-solid fa-phone" style="width: 20px;"></i> +1 (555) 123-4567</li>
+                        <li><i class="fa-solid fa-envelope" style="width: 20px;"></i> hello@agrismart.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 AgriSmart Solutions. All Rights Reserved. Designed for modern agriculture.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
